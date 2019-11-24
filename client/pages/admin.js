@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 import Router from 'next/router';
+import Head from 'next/head';
 import fetch from 'isomorphic-unfetch';
 import nextCookie from 'next-cookies';
 
@@ -32,43 +33,48 @@ const Admin = props => {
   };
 
   return (
-    <Layout>
-      <AppBar position='static' className={classes.toolBar}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          TabIndicatorProps={{ style: { backgroundColor: '#003580' } }}
-          centered
-        >
-          <Tab className={classes.tab} label='Home' />
-          <Tab className={classes.tab} label='Enquiries' />
-          <Tab className={classes.tab} label='Messages' />
-          <Tab className={classes.tab} label='Establishments' />
-        </Tabs>
-      </AppBar>
-      <Container>
-        {value === 0 && (
-          <TabContainer>
-            <Home />
-          </TabContainer>
-        )}
-        {value === 1 && (
-          <TabContainer>
-            <Enquiries />
-          </TabContainer>
-        )}
-        {value === 2 && (
-          <TabContainer>
-            <Messages />
-          </TabContainer>
-        )}
-        {value === 3 && (
-          <TabContainer>
-            <Establishments />
-          </TabContainer>
-        )}
-      </Container>
-    </Layout>
+    <>
+      <Head>
+        <title>Admin - Holidaze - A hotel booking site.</title>
+      </Head>
+      <Layout>
+        <AppBar position='static' className={classes.toolBar}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            TabIndicatorProps={{ style: { backgroundColor: '#003580' } }}
+            centered
+          >
+            <Tab className={classes.tab} label='Home' />
+            <Tab className={classes.tab} label='Enquiries' />
+            <Tab className={classes.tab} label='Messages' />
+            <Tab className={classes.tab} label='Establishments' />
+          </Tabs>
+        </AppBar>
+        <Container>
+          {value === 0 && (
+            <TabContainer>
+              <Home />
+            </TabContainer>
+          )}
+          {value === 1 && (
+            <TabContainer>
+              <Enquiries />
+            </TabContainer>
+          )}
+          {value === 2 && (
+            <TabContainer>
+              <Messages />
+            </TabContainer>
+          )}
+          {value === 3 && (
+            <TabContainer>
+              <Establishments />
+            </TabContainer>
+          )}
+        </Container>
+      </Layout>
+    </>
   );
 };
 

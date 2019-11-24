@@ -9,6 +9,7 @@ import Container from '@material-ui/core/Container';
 
 import cookie from 'js-cookie';
 import Router from 'next/router';
+import Head from 'next/head';
 import fetch from 'isomorphic-unfetch';
 import nextCookie from 'next-cookies';
 
@@ -58,9 +59,7 @@ const Login = props => {
           }
         })
         .then(res => {
-          setTimeout(() => {
-            setBtnDisabled(false);
-          }, 1500);
+          setBtnDisabled(false);
           cookie.set('token', res.data.token);
           signIn();
           return res;
@@ -76,68 +75,73 @@ const Login = props => {
   };
 
   return (
-    <Layout>
-      <Container>
-        <Typography variant='h4' component='h4' className={classes.title}>
-          Login
-        </Typography>
-        <form onSubmit={handleLogin} noValidate autoComplete='off'>
-          <Grid container justify='center' alignItems='center'>
-            <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
-              <TextField
-                type='text'
-                id='username'
-                label='Username'
-                onChange={e => setUsername(e.target.value)}
-                variant='outlined'
-                fullWidth
-                helperText={
-                  usernameErr === '' ? 'Enter your username' : usernameErr
-                }
-                error={usernameErr !== ''}
-              />
+    <>
+      <Head>
+        <title>Login - Holidaze - A hotel booking site.</title>
+      </Head>
+      <Layout>
+        <Container>
+          <Typography variant='h4' component='h4' className={classes.title}>
+            Login
+          </Typography>
+          <form onSubmit={handleLogin} noValidate autoComplete='off'>
+            <Grid container justify='center' alignItems='center'>
+              <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
+                <TextField
+                  type='text'
+                  id='username'
+                  label='Username'
+                  onChange={e => setUsername(e.target.value)}
+                  variant='outlined'
+                  fullWidth
+                  helperText={
+                    usernameErr === '' ? 'Enter your username' : usernameErr
+                  }
+                  error={usernameErr !== ''}
+                />
+              </Grid>
             </Grid>
-          </Grid>
 
-          <Grid container justify='center' alignItems='center'>
-            <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
-              <TextField
-                type='password'
-                id='password'
-                label='Password'
-                onChange={e => setPassword(e.target.value)}
-                variant='outlined'
-                fullWidth
-                helperText={
-                  passwordErr === '' ? 'Enter your username' : passwordErr
-                }
-                error={passwordErr !== ''}
-              />
+            <Grid container justify='center' alignItems='center'>
+              <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
+                <TextField
+                  type='password'
+                  id='password'
+                  label='Password'
+                  onChange={e => setPassword(e.target.value)}
+                  variant='outlined'
+                  fullWidth
+                  helperText={
+                    passwordErr === '' ? 'Enter your username' : passwordErr
+                  }
+                  error={passwordErr !== ''}
+                />
+              </Grid>
             </Grid>
-          </Grid>
 
-          <Grid container justify='center' alignItems='center'>
-            <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
-              <Button
-                className={classes.submitBtn}
-                classes={{ disabled: classes.submitDisabled }}
-                component={submitButton}
-                variant='contained'
-                disabled={btnDisabled}
-              >
-                Login
-                {btnDisabled && (
-                  <CircularProgress
-                    size={38}
-                    className={classes.loadingSymbol}
-                  />
-                )}
-              </Button>
+            <Grid container justify='center' alignItems='center'>
+              <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
+                <Button
+                  className={classes.submitBtn}
+                  classes={{ disabled: classes.submitDisabled }}
+                  component={submitButton}
+                  variant='contained'
+                  disabled={btnDisabled}
+                >
+                  Login
+                  {btnDisabled && (
+                    <CircularProgress
+                      size={38}
+                      className={classes.loadingSymbol}
+                    />
+                  )}
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </Container>
-    </Layout>
+          </form>
+        </Container>
+      </Layout>
+    </>
   );
 };
 

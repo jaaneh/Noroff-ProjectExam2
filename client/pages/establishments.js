@@ -2,6 +2,7 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
+import Head from 'next/head';
 import fetch from 'isomorphic-unfetch';
 import { API_URL } from '../lib/api';
 
@@ -32,13 +33,18 @@ const Establishments = props => {
   };
 
   return (
-    <Layout>
-      <Container style={{ paddingTop: 15 }}>
-        <Grid container spacing={2}>
-          {createEst()}
-        </Grid>
-      </Container>
-    </Layout>
+    <>
+      <Head>
+        <title>Establishments - Holidaze - A hotel booking site.</title>
+      </Head>
+      <Layout>
+        <Container style={{ paddingTop: 15 }}>
+          <Grid container spacing={2}>
+            {createEst()}
+          </Grid>
+        </Container>
+      </Layout>
+    </>
   );
 };
 

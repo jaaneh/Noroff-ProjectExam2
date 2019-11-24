@@ -12,6 +12,7 @@ import styles from '../styles/contact.styles';
 
 import { API_URL } from '../lib/api';
 import axios from 'axios';
+import Head from 'next/head';
 
 const Contact = props => {
   const { classes } = props;
@@ -65,72 +66,77 @@ const Contact = props => {
   };
 
   return (
-    <Layout>
-      <Container>
-        <Typography variant='h5' component='h5' className={classes.title}>
-          Contact Us
-        </Typography>
-        <form onSubmit={handleContact} noValidate autoComplete='off'>
-          <Grid container justify='center' alignItems='center'>
-            <Grid className={classes.formSpacing} item xs={12} sm={6} md={4}>
-              <TextField
-                type='text'
-                label='Your Name'
-                onChange={e => setName(e.target.value)}
-                variant='outlined'
-                fullWidth
-              />
+    <>
+      <Head>
+        <title>Contact - Holidaze - A hotel booking site.</title>
+      </Head>
+      <Layout>
+        <Container>
+          <Typography variant='h5' component='h5' className={classes.title}>
+            Contact Us
+          </Typography>
+          <form onSubmit={handleContact} noValidate autoComplete='off'>
+            <Grid container justify='center' alignItems='center'>
+              <Grid className={classes.formSpacing} item xs={12} sm={6} md={4}>
+                <TextField
+                  type='text'
+                  label='Your Name'
+                  onChange={e => setName(e.target.value)}
+                  variant='outlined'
+                  fullWidth
+                />
+              </Grid>
             </Grid>
-          </Grid>
 
-          <Grid container justify='center' alignItems='center'>
-            <Grid className={classes.formSpacing} item xs={12} sm={6} md={4}>
-              <TextField
-                type='email'
-                label='Your Email'
-                onChange={e => setEmail(e.target.value)}
-                variant='outlined'
-                fullWidth
-              />
+            <Grid container justify='center' alignItems='center'>
+              <Grid className={classes.formSpacing} item xs={12} sm={6} md={4}>
+                <TextField
+                  type='email'
+                  label='Your Email'
+                  onChange={e => setEmail(e.target.value)}
+                  variant='outlined'
+                  fullWidth
+                />
+              </Grid>
             </Grid>
-          </Grid>
 
-          <Grid container justify='center' alignItems='center'>
-            <Grid className={classes.formSpacing} item xs={12} sm={6} md={4}>
-              <TextField
-                type='text'
-                label='Your Message'
-                onChange={e => setMessage(e.target.value)}
-                variant='outlined'
-                fullWidth
-                multiline
-                rows={4}
-              />
+            <Grid container justify='center' alignItems='center'>
+              <Grid className={classes.formSpacing} item xs={12} sm={6} md={4}>
+                <TextField
+                  type='text'
+                  label='Your Message'
+                  onChange={e => setMessage(e.target.value)}
+                  variant='outlined'
+                  fullWidth
+                  multiline
+                  rows={4}
+                />
+              </Grid>
             </Grid>
-          </Grid>
 
-          <Grid container justify='center' alignItems='center'>
-            <Grid className={classes.formSpacing} item xs={12} sm={6} md={4}>
-              <Button
-                className={classes.submitBtn}
-                classes={{ disabled: classes.submitDisabled }}
-                component={submitButton}
-                variant='contained'
-                disabled={btnDisabled}
-              >
-                Contact
-                {btnDisabled && (
-                  <CircularProgress
-                    size={38}
-                    className={classes.loadingSymbol}
-                  />
-                )}
-              </Button>
+            <Grid container justify='center' alignItems='center'>
+              <Grid className={classes.formSpacing} item xs={12} sm={6} md={4}>
+                <Button
+                  className={classes.submitBtn}
+                  classes={{ disabled: classes.submitDisabled }}
+                  component={submitButton}
+                  variant='contained'
+                  disabled={btnDisabled}
+                >
+                  Contact
+                  {btnDisabled && (
+                    <CircularProgress
+                      size={38}
+                      className={classes.loadingSymbol}
+                    />
+                  )}
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </Container>
-    </Layout>
+          </form>
+        </Container>
+      </Layout>
+    </>
   );
 };
 
