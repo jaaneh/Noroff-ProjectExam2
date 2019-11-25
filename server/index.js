@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
 const port = process.env.PORT || 3001;
 const app = express();
 
@@ -13,6 +14,8 @@ mongoose.connect(process.env.MONGODB_URI, {
   useUnifiedTopology: true,
   useCreateIndex: true
 });
+
+autoIncrement.initialize(mongoose.connection);
 
 app.use(cors());
 app.use(helmet());

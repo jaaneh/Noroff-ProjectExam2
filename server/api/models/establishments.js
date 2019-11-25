@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
 
 const establishmentSchema = mongoose.Schema(
   {
@@ -16,5 +17,12 @@ const establishmentSchema = mongoose.Schema(
   },
   { versionKey: false }
 );
+
+establishmentSchema.plugin(autoIncrement.plugin, {
+  model: 'Establishment',
+  field: 'id',
+  startAt: 18,
+  incrementBy: 1
+});
 
 module.exports = mongoose.model('Establishment', establishmentSchema);

@@ -2,6 +2,7 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
+import Router from 'next/router';
 import fetch from 'isomorphic-unfetch';
 import { API_URL } from '../../lib/api';
 
@@ -39,13 +40,42 @@ const Establishment = props => {
   );
 };
 
-Establishment.getInitialProps = async ({ query }) => {
-  const res = await fetch(`${API_URL}/establishments/get/${query.id}`);
-  const json = await res.json();
+Establishment.getInitialProps = async ctx => {
+  const res = ctx.res;
+  const id = ctx.query.id;
 
-  return {
-    json: json.one
+  const redirectOnError = () => {
+    if (res) {
+      res.writeHead(302, {
+        Location: '/'
+      });
+      res.end();
+    } else {
+      Router.push('/');
+    }
   };
+
+  try {
+    const response = await fetch(`${API_URL}/establishments/get/${id}`);
+    const json = await response.json();
+
+    if (json.one) {
+      return { json: json.one };
+    } else {
+      return redirectOnError();
+    }
+  } catch (error) {
+    return redirectOnError();
+  }
 };
+
+// Establishment.getInitialProps = async ({ query }) => {
+//   const res = await fetch(`${API_URL}/establishments/get/${query.id}`);
+//   const json = await res.json();
+
+//   return {
+//     json: json.one
+//   };
+// };
 
 export default Establishment;
