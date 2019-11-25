@@ -14,7 +14,9 @@ const Layout = props => {
         <StylesProvider injectFirst>
           <CssBaseline />
           <Header />
-          <main className='main'>{props.children}</main>
+          <main className='main' id='main'>
+            {props.children}
+          </main>
           <Footer />
         </StylesProvider>
       </ThemeProvider>

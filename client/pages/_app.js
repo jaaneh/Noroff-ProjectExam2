@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
 import Head from 'next/head';
 import cookie from 'js-cookie';
+import NextNprogress from 'nextjs-progressbar';
 
 import AuthContext from '../contexts/AuthContext';
 import { validateToken } from '../lib/api';
@@ -58,6 +59,17 @@ const MyApp = props => {
           logOut: logOut
         }}
       >
+        <NextNprogress
+          color='#29D'
+          startPosition={0.3}
+          stopDelayMs={200}
+          height={3}
+          options={{
+            parent: '#main',
+            easing: 'ease',
+            speed: 500
+          }}
+        />
         <Component {...pageProps} />
       </AuthContext.Provider>
       <style jsx global>{`
