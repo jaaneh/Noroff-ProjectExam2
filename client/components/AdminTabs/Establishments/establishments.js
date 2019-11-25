@@ -36,11 +36,12 @@ const Establishments = props => {
       name &&
       email &&
       imageUrl &&
-      description &&
+      price &&
+      maxGuests &&
       googleLat &&
       googleLong &&
-      price &&
-      maxGuests
+      description &&
+      selfCatering
     ) {
       return true;
     }

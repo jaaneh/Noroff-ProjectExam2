@@ -37,7 +37,7 @@ const Enquiry = props => {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 
-    if (email.match(emailRegex)) {
+    if (name && clientName && email.match(emailRegex) && checkin && checkout) {
       return true;
     }
     return false;
