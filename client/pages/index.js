@@ -18,12 +18,13 @@ import styles from '../styles/home.styles';
 
 const Home = props => {
   const { classes } = props;
-  const all = props.json.filter((el, i) => {
+  const all = props.json;
+  const allFiltered = props.json.filter((el, i) => {
     return i % 3 === 0;
   });
 
   const createEst = () => {
-    return all.map((val, i) => {
+    return allFiltered.map((val, i) => {
       return (
         <EstablishmentsComponent
           key={i}
