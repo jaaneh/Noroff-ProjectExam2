@@ -8,11 +8,11 @@ const establishmentSchema = mongoose.Schema(
     establishmentEmail: { type: String, required: true },
     imageUrl: { type: String, required: true },
     price: { type: Number, required: true },
-    maxGuests: Number,
-    googleLat: Number,
-    googleLong: Number,
+    maxGuests: { type: Number, required: true },
+    googleLat: { type: Number, required: true },
+    googleLong: { type: Number, required: true },
     description: { type: String, required: true },
-    selfCatering: Boolean,
+    selfCatering: { type: Boolean, required: true },
     id: Number
   },
   { versionKey: false }

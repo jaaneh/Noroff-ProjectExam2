@@ -36,9 +36,19 @@ function missingToken(req, res, next) {
   });
 }
 
+function validationError(req, res, next, err) {
+  return res.status(422).json({
+    error: {
+      status: 422,
+      message: err
+    }
+  });
+}
+
 module.exports = {
   notAuthorized,
   fiveHundred,
   invalidToken,
-  missingToken
+  missingToken,
+  validationError
 };

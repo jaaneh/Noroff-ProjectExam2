@@ -69,13 +69,4 @@ Establishment.getInitialProps = async ctx => {
   }
 };
 
-// Establishment.getInitialProps = async ({ query }) => {
-//   const res = await fetch(`${API_URL}/establishments/get/${query.id}`);
-//   const json = await res.json();
-
-//   return {
-//     json: json.one
-//   };
-// };
-
 export default Establishment;
