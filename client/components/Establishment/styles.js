@@ -4,11 +4,16 @@ module.exports = {
     height: 300
   },
   cardContent: {
-    paddingBottom: 16,
+    position: 'relative',
+    paddingBottom: '16px !important',
     width: '100%'
   },
   cardActions: {
-    padding: '32px 0 0'
+    position: 'absolute',
+    padding: 16,
+    width: '100%',
+    bottom: 0,
+    left: 0
   },
   cover: {
     minWidth: '35%'

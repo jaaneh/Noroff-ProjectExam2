@@ -28,7 +28,7 @@ const EstablishmentComponent = props => {
           title={props.name}
         />
         <CardContent className={classes.cardContent}>
-          <Typography component='h5' variant='h5' gutterBottom>
+          <Typography component='h4' variant='h4' gutterBottom>
             {props.name}
           </Typography>
           <Typography variant='body2' color='textSecondary' paragraph>

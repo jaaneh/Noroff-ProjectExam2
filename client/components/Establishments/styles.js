@@ -3,7 +3,7 @@ module.exports = {
     display: 'flex'
   },
   cardContent: {
-    paddingBottom: 16,
+    paddingBottom: '16px !important',
     width: '100%'
   },
   cardActions: {
