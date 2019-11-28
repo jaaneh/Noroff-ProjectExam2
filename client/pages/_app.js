@@ -66,6 +66,7 @@ const MyApp = props => {
           height={3}
           options={{
             parent: '#main',
+            showSpinner: false,
             easing: 'ease',
             speed: 500
           }}

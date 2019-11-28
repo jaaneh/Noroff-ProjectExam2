@@ -13,7 +13,8 @@ module.exports = theme => ({
     }
   },
   avatar: {
-    margin: 10
+    margin: 10,
+    cursor: 'pointer'
   },
   name: {
     marginLeft: '15px',
@@ -26,6 +27,7 @@ module.exports = theme => ({
     width: 150,
     marginRight: 15,
     verticalAlign: 'middle',
+    cursor: 'pointer',
     '@media (max-width: 600px)': {
       marginLeft: 5
     }
