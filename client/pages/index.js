@@ -8,6 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
+import Head from 'next/head';
+import Router from 'next/router';
 import fetch from 'isomorphic-unfetch';
 import { API_URL } from '../lib/api';
 
@@ -22,6 +24,25 @@ const Home = props => {
   const allFiltered = props.json.filter((el, i) => {
     return i % 3 === 0;
   });
+
+  const getEst = estName => {
+    let id;
+    JSON.stringify(all, (key, val) => {
+      if (val['establishmentName'] === estName) {
+        id = val.id;
+      }
+      return val;
+    });
+    return id;
+  };
+
+  const goToEst = async (e, val) => {
+    if (val === null || val === '') {
+      return;
+    }
+    const id = await getEst(val);
+    Router.push(`/establishment/${id}`);
+  };
 
   const createEst = () => {
     return allFiltered.map((val, i) => {
@@ -44,60 +65,66 @@ const Home = props => {
   };
 
   return (
-    <Layout>
-      <img
-        src={require('../public/images/hero-gradient.jpg')}
-        className={classes.hero}
-        alt='Image of Sunset Beach'
-      />
-      <Container>
-        <div className={classes.heroWrapper}>
-          <Typography variant='body2' className={classes.discover}>
-            DISCOVER...
+    <>
+      <Head>
+        <title>Holidaze - Home</title>
+      </Head>
+      <Layout>
+        <img
+          src={require('../public/images/hero-gradient.jpg')}
+          className={classes.hero}
+          alt='Image of Sunset Beach'
+        />
+        <Container>
+          <div className={classes.heroWrapper}>
+            <Typography variant='body2' className={classes.discover}>
+              DISCOVER...
+            </Typography>
+            <Typography variant='h1' className={classes.title}>
+              SUNSET BEACH
+            </Typography>
+            <Autocomplete
+              options={all.map(option => option.establishmentName)}
+              className={classes.autocomplete}
+              onChange={goToEst}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  placeholder='Search Establishments...'
+                  margin='normal'
+                  variant='outlined'
+                  fullWidth
+                  className={classes.textField}
+                  InputProps={{
+                    ...params.InputProps,
+                    classes: {
+                      focused: classes.noBorder,
+                      notchedOutline: classes.noBorder
+                    },
+                    startAdornment: (
+                      <InputAdornment
+                        position='start'
+                        className={classes.positionStart}
+                      >
+                        <SearchIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                />
+              )}
+            />
+          </div>
+        </Container>
+        <Container style={{ paddingTop: 25 }}>
+          <Typography variant='h5' className={classes.handpicked}>
+            HANDPICKED ESTABLISHMENTS
           </Typography>
-          <Typography variant='h1' className={classes.title}>
-            SUNSET BEACH
-          </Typography>
-          <Autocomplete
-            options={all.map(option => option.establishmentName)}
-            className={classes.autocomplete}
-            renderInput={params => (
-              <TextField
-                {...params}
-                placeholder='Search Establishments...'
-                margin='normal'
-                variant='outlined'
-                fullWidth
-                className={classes.textField}
-                InputProps={{
-                  ...params.InputProps,
-                  classes: {
-                    focused: classes.noBorder,
-                    notchedOutline: classes.noBorder
-                  },
-                  startAdornment: (
-                    <InputAdornment
-                      position='start'
-                      className={classes.positionStart}
-                    >
-                      <SearchIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            )}
-          />
-        </div>
-      </Container>
-      <Container style={{ paddingTop: 25 }}>
-        <Typography variant='h5' className={classes.handpicked}>
-          HANDPICKED ESTABLISHMENTS
-        </Typography>
-        <Grid container spacing={2}>
-          {createEst()}
-        </Grid>
-      </Container>
-    </Layout>
+          <Grid container spacing={2}>
+            {createEst()}
+          </Grid>
+        </Container>
+      </Layout>
+    </>
   );
 };
 

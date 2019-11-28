@@ -77,7 +77,7 @@ const Login = props => {
   return (
     <>
       <Head>
-        <title>Login - Holidaze - A hotel booking site.</title>
+        <title>Holidaze - Login</title>
       </Head>
       <Layout>
         <Container>

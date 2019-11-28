@@ -50,7 +50,7 @@ const MyApp = props => {
   return (
     <>
       <Head>
-        <title>Holidaze - A hotel booking site.</title>
+        <title>Holidaze - A hotel booking site</title>
       </Head>
       <AuthContext.Provider
         value={{

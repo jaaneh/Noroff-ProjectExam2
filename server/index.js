@@ -22,7 +22,7 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.static(__dirname + '../client/.next/'));
+app.use(express.static(__dirname + '../client/.next/static'));
 
 const userRoutes = require('./api/routes/user');
 const establishmentRoutes = require('./api/routes/establishments');

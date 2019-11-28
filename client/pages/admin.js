@@ -35,7 +35,7 @@ const Admin = props => {
   return (
     <>
       <Head>
-        <title>Admin - Holidaze - A hotel booking site.</title>
+        <title>Holidaze - Admin</title>
       </Head>
       <Layout>
         <AppBar position='static' className={classes.toolBar}>

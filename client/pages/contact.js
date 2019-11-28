@@ -68,7 +68,7 @@ const Contact = props => {
   return (
     <>
       <Head>
-        <title>Contact - Holidaze - A hotel booking site.</title>
+        <title>Holidaze - Contact</title>
       </Head>
       <Layout>
         <Container>

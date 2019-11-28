@@ -35,7 +35,7 @@ const Establishments = props => {
   return (
     <>
       <Head>
-        <title>Establishments - Holidaze - A hotel booking site.</title>
+        <title>Holidaze - Establishments</title>
       </Head>
       <Layout>
         <Container style={{ paddingTop: 15 }}>
