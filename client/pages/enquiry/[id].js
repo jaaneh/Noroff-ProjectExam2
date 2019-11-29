@@ -82,7 +82,7 @@ const Enquiry = props => {
   return (
     <Layout>
       <Container>
-        <Link href='/establishments'>
+        <Link href={'/establishment/' + est.id}>
           <span className={classes.arrowWrapper}>
             <ArrowRightAlt className={classes.arrow} />
             <span className={classes.goBack}>Go Back</span>
