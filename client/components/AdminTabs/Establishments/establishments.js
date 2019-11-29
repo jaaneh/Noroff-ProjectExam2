@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -14,34 +14,91 @@ import { API_URL } from '../../../lib/api';
 
 import styles from './styles';
 
+const estReducer = (state, action) => {
+  switch (action.type) {
+  case 'field': {
+    return {
+      ...state,
+      [action.field]: action.value
+    };
+  }
+  case 'disable_button': {
+    return {
+      ...state,
+      btnDisabled: true
+    };
+  }
+  case 'enable_button': {
+    return {
+      ...state,
+      btnDisabled: false
+    };
+  }
+  case 'clear_fields': {
+    return {
+      ...state,
+      name: '',
+      email: '',
+      imageUrl: '',
+      description: '',
+      googleLat: '',
+      googleLong: '',
+      price: '',
+      maxGuests: ''
+    };
+  }
+  default:
+    return state;
+  }
+};
+
+const initialState = {
+  name: '',
+  email: '',
+  imageUrl: '',
+  description: '',
+  googleLat: '',
+  googleLong: '',
+  price: '',
+  maxGuests: '',
+  selfCatering: false,
+  btnDisabled: false
+};
+
 const Establishments = props => {
   const { classes } = props;
-  const [ name, setName ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const [ imageUrl, setImageUrl ] = useState('');
-  const [ description, setDescription ] = useState('');
-  const [ googleLat, setGoogleLat ] = useState('');
-  const [ googleLong, setGoogleLong ] = useState('');
-  const [ price, setPrice ] = useState('');
-  const [ maxGuests, setMaxGuests ] = useState('');
-  const [ selfCatering, setSelfCatering ] = useState(Boolean);
-  const [ btnDisabled, setBtnDisabled ] = useState(false);
+  const [ state, dispatch ] = useReducer(estReducer, initialState);
+  const {
+    name,
+    email,
+    imageUrl,
+    description,
+    googleLat,
+    googleLong,
+    price,
+    maxGuests,
+    selfCatering,
+    btnDisabled
+  } = state;
 
   const submitButton = React.forwardRef((props, ref) => (
     <button {...props} ref={ref} type='submit' />
   ));
 
   const formIsValid = () => {
+    const emailRegex = new RegExp(
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+
     if (
       name &&
-      email &&
+      email.match(emailRegex) &&
       imageUrl &&
       price &&
       maxGuests &&
       googleLat &&
       googleLong &&
-      description &&
-      selfCatering
+      description
     ) {
       return true;
     }
@@ -53,7 +110,7 @@ const Establishments = props => {
     const token = cookie.get('token');
 
     if (formIsValid()) {
-      setBtnDisabled(true);
+      dispatch({ type: 'disable_button' });
       const body = {
         name: name,
         email: email,
@@ -75,14 +132,15 @@ const Establishments = props => {
         })
         .then(res => {
           setTimeout(() => {
-            setBtnDisabled(false);
+            dispatch({ type: 'enable_button' });
+            dispatch({ type: 'clear_fields' });
           }, 1500);
-          return res;
         })
         .catch(err => {
           setTimeout(() => {
-            setBtnDisabled(false);
-          }, 1500);
+            dispatch({ type: 'enable_button' });
+            dispatch({ type: 'clear_fields' });
+          }, 1000);
         });
     }
   };
@@ -97,9 +155,15 @@ const Establishments = props => {
           <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
             <TextField
               type='text'
-              id='name'
               label='Establishment Name'
-              onChange={e => setName(e.target.value)}
+              value={name}
+              onChange={e =>
+                dispatch({
+                  type: 'field',
+                  field: 'name',
+                  value: e.target.value
+                })
+              }
               variant='outlined'
               fullWidth
             />
@@ -107,9 +171,15 @@ const Establishments = props => {
           <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
             <TextField
               type='text'
-              id='email'
               label='Establishment Email'
-              onChange={e => setEmail(e.target.value)}
+              value={email}
+              onChange={e =>
+                dispatch({
+                  type: 'field',
+                  field: 'email',
+                  value: e.target.value
+                })
+              }
               variant='outlined'
               fullWidth
             />
@@ -117,9 +187,15 @@ const Establishments = props => {
           <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
             <TextField
               type='url'
-              id='image'
               label='Image URL'
-              onChange={e => setImageUrl(e.target.value)}
+              value={imageUrl}
+              onChange={e =>
+                dispatch({
+                  type: 'field',
+                  field: 'imageUrl',
+                  value: e.target.value
+                })
+              }
               variant='outlined'
               fullWidth
             />
@@ -127,9 +203,15 @@ const Establishments = props => {
           <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
             <TextField
               type='text'
-              id='description'
               label='Description'
-              onChange={e => setDescription(e.target.value)}
+              value={description}
+              onChange={e =>
+                dispatch({
+                  type: 'field',
+                  field: 'description',
+                  value: e.target.value
+                })
+              }
               variant='outlined'
               fullWidth
             />
@@ -137,9 +219,15 @@ const Establishments = props => {
           <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
             <TextField
               type='number'
-              id='googlelat'
               label='Google Latitude'
-              onChange={e => setGoogleLat(e.target.value)}
+              value={googleLat}
+              onChange={e =>
+                dispatch({
+                  type: 'field',
+                  field: 'googleLat',
+                  value: e.target.value
+                })
+              }
               variant='outlined'
               fullWidth
             />
@@ -147,9 +235,15 @@ const Establishments = props => {
           <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
             <TextField
               type='number'
-              id='googlelong'
               label='Google Longitude'
-              onChange={e => setGoogleLong(e.target.value)}
+              value={googleLong}
+              onChange={e =>
+                dispatch({
+                  type: 'field',
+                  field: 'googleLong',
+                  value: e.target.value
+                })
+              }
               variant='outlined'
               fullWidth
             />
@@ -157,9 +251,15 @@ const Establishments = props => {
           <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
             <TextField
               type='number'
-              id='price'
               label='Price €'
-              onChange={e => setPrice(e.target.value)}
+              value={price}
+              onChange={e =>
+                dispatch({
+                  type: 'field',
+                  field: 'price',
+                  value: e.target.value
+                })
+              }
               variant='outlined'
               fullWidth
             />
@@ -167,9 +267,15 @@ const Establishments = props => {
           <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
             <TextField
               type='number'
-              id='guests'
               label='Max Guests'
-              onChange={e => setMaxGuests(e.target.value)}
+              value={maxGuests}
+              onChange={e =>
+                dispatch({
+                  type: 'field',
+                  field: 'maxGuests',
+                  value: e.target.value
+                })
+              }
               variant='outlined'
               fullWidth
             />
@@ -179,7 +285,13 @@ const Establishments = props => {
               control={
                 <Checkbox
                   checked={selfCatering}
-                  onChange={e => setSelfCatering(!selfCatering)}
+                  onChange={e =>
+                    dispatch({
+                      type: 'field',
+                      field: 'selfCatering',
+                      value: e.target.value
+                    })
+                  }
                   color='primary'
                 />
               }
