@@ -23,5 +23,20 @@ module.exports = {
       backgroundColor: '#0077CC',
       boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .4)'
     }
+  },
+  cancelButton: {
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .2)',
+    '&:hover': {
+      backgroundColor: '#0077CC',
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .4)'
+    }
+  },
+  removeButton: {
+    backgroundColor: '#DB3030',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .2)',
+    '&:hover': {
+      backgroundColor: '#DC7171',
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .4)'
+    }
   }
 };

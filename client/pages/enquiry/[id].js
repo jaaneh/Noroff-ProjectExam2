@@ -110,6 +110,7 @@ const Enquiry = props => {
               <TextField
                 type='text'
                 label='Your Name'
+                value={clientName}
                 onChange={e => setClientName(e.target.value)}
                 variant='outlined'
                 fullWidth
@@ -122,6 +123,7 @@ const Enquiry = props => {
               <TextField
                 type='email'
                 label='Your Email'
+                value={email}
                 onChange={e => setEmail(e.target.value)}
                 variant='outlined'
                 fullWidth

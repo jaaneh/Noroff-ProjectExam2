@@ -34,6 +34,14 @@ const contactReducer = (state, action) => {
       btnDisabled: false
     };
   }
+  case 'clear_fields': {
+    return {
+      ...state,
+      name: '',
+      email: '',
+      message: ''
+    };
+  }
   default:
     return state;
   }
@@ -50,10 +58,6 @@ const Contact = props => {
   const { classes } = props;
   const [ state, dispatch ] = useReducer(contactReducer, initialState);
   const { name, email, message, btnDisabled } = state;
-  // const [ name, setName ] = useState('');
-  // const [ email, setEmail ] = useState('');
-  // const [ message, setMessage ] = useState('');
-  // const [ btnDisabled, setBtnDisabled ] = useState(false);
 
   const submitButton = React.forwardRef((props, ref) => (
     <button {...props} ref={ref} type='submit' />
@@ -90,10 +94,12 @@ const Contact = props => {
         .then(res => {
           setTimeout(() => {
             dispatch({ type: 'enable_button' });
+            dispatch({ type: 'clear_fields' });
           }, 1500);
         })
         .catch(err => {
           dispatch({ type: 'enable_button' });
+          dispatch({ type: 'clear_fields' });
         });
     }
   };
@@ -114,6 +120,7 @@ const Contact = props => {
                 <TextField
                   type='text'
                   label='Your Name'
+                  value={name}
                   onChange={e =>
                     dispatch({
                       type: 'field',
@@ -132,6 +139,7 @@ const Contact = props => {
                 <TextField
                   type='email'
                   label='Your Email'
+                  value={email}
                   onChange={e =>
                     dispatch({
                       type: 'field',
@@ -150,6 +158,7 @@ const Contact = props => {
                 <TextField
                   type='text'
                   label='Your Message'
+                  value={message}
                   onChange={e =>
                     dispatch({
                       type: 'field',

@@ -10,6 +10,7 @@ import { validateToken } from '../lib/api';
 const MyApp = props => {
   const { Component, pageProps } = props;
   const [ isAuth, setAuth ] = useState(false);
+  const [ update, setUpdate ] = useState(false);
   const token = cookie.get('token');
 
   useEffect(() => {
@@ -36,6 +37,10 @@ const MyApp = props => {
     }
   };
 
+  const forceUpdate = () => {
+    setUpdate(!update);
+  };
+
   const signIn = () => {
     setAuth(true);
     Router.push('/admin');
@@ -56,7 +61,9 @@ const MyApp = props => {
         value={{
           isAuth: isAuth,
           signIn: signIn,
-          logOut: logOut
+          logOut: logOut,
+          update: update,
+          forceUpdate: forceUpdate
         }}
       >
         <NextNprogress

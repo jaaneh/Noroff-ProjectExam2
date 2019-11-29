@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import MessagesComponent from './Model/messages';
 import { getMessages } from '../../../lib/api';
+import AuthContext from '../../../contexts/AuthContext';
 
 const Messages = () => {
+  const { update } = useContext(AuthContext);
   const [ apiRes, setApiRes ] = useState([]);
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [ update ]);
 
   const getData = async () => {
     const res = await getMessages();
@@ -26,6 +28,7 @@ const Messages = () => {
           clientName={val.clientName}
           email={val.email}
           message={val.message}
+          _id={val._id}
         />
       );
     });
