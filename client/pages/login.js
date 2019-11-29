@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useReducer } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -21,14 +21,44 @@ import styles from '../styles/login.styles';
 import axios from 'axios';
 import { API_URL } from '../lib/api';
 
+const loginReducer = (state, action) => {
+  switch (action.type) {
+  case 'field': {
+    return {
+      ...state,
+      [action.field]: action.value
+    };
+  }
+  case 'disable_button': {
+    return {
+      ...state,
+      btnDisabled: true
+    };
+  }
+  case 'enable_button': {
+    return {
+      ...state,
+      btnDisabled: false
+    };
+  }
+  default:
+    return state;
+  }
+};
+
+const initialState = {
+  username: '',
+  password: '',
+  usernameErr: '',
+  passwordErr: '',
+  btnDisabled: false
+};
+
 const Login = props => {
   const { classes } = props;
   const { signIn } = useContext(AuthContext);
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
-  const [ usernameErr, setUsernameErr ] = useState('');
-  const [ passwordErr, setPasswordErr ] = useState('');
-  const [ btnDisabled, setBtnDisabled ] = useState(false);
+  const [ state, dispatch ] = useReducer(loginReducer, initialState);
+  const { username, password, usernameErr, passwordErr, btnDisabled } = state;
 
   const submitButton = React.forwardRef((props, ref) => (
     <button {...props} ref={ref} type='submit' />
@@ -45,7 +75,7 @@ const Login = props => {
     evt.preventDefault();
 
     if (formIsValid()) {
-      setBtnDisabled(true);
+      dispatch({ type: 'disable_button' });
       const body = {
         username: username,
         password: password,
@@ -59,17 +89,24 @@ const Login = props => {
           }
         })
         .then(res => {
-          setBtnDisabled(false);
+          dispatch({ type: 'enable_button' });
           cookie.set('token', res.data.token);
           signIn();
-          return res;
         })
         .catch(err => {
           setTimeout(() => {
-            setBtnDisabled(false);
-            setUsernameErr('Invalid username!');
-            setPasswordErr('Invalid password!');
-          }, 1500);
+            dispatch({
+              type: 'field',
+              field: 'usernameErr',
+              value: 'Invalid username!'
+            });
+            dispatch({
+              type: 'field',
+              field: 'passwordErr',
+              value: 'Invalid password!'
+            });
+            dispatch({ type: 'enable_button' });
+          }, 1000);
         });
     }
   };
@@ -89,9 +126,14 @@ const Login = props => {
               <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
                 <TextField
                   type='text'
-                  id='username'
                   label='Username'
-                  onChange={e => setUsername(e.target.value)}
+                  onChange={e =>
+                    dispatch({
+                      type: 'field',
+                      field: 'username',
+                      value: e.target.value
+                    })
+                  }
                   variant='outlined'
                   fullWidth
                   helperText={
@@ -106,9 +148,14 @@ const Login = props => {
               <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
                 <TextField
                   type='password'
-                  id='password'
                   label='Password'
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={e =>
+                    dispatch({
+                      type: 'field',
+                      field: 'password',
+                      value: e.target.value
+                    })
+                  }
                   variant='outlined'
                   fullWidth
                   helperText={

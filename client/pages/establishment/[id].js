@@ -1,15 +1,20 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import ArrowRightAlt from '@material-ui/icons/ArrowRightAlt';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import Router from 'next/router';
+import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { API_URL } from '../../lib/api';
 
 import Layout from '../../components/Layout/layout';
 import EstablishmentComponent from '../../components/Establishment/establishment';
+import styles from '../../styles/establishment.styles';
 
 const Establishment = props => {
+  const { classes } = props;
   const est = props.json;
 
   const createEst = () => {
@@ -34,6 +39,14 @@ const Establishment = props => {
       <Container style={{ paddingTop: 15 }}>
         <Grid container spacing={2}>
           {createEst()}
+        </Grid>
+        <Grid container>
+          <Link href='/establishments'>
+            <span className={classes.arrowWrapper}>
+              <ArrowRightAlt className={classes.arrow} />
+              <span className={classes.goBack}>Go Back</span>
+            </span>
+          </Link>
         </Grid>
       </Container>
     </Layout>
@@ -69,4 +82,4 @@ Establishment.getInitialProps = async ctx => {
   }
 };
 
-export default Establishment;
+export default withStyles(styles)(Establishment);

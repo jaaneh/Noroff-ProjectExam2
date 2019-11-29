@@ -25,7 +25,7 @@ const Home = props => {
     return i % 3 === 0;
   });
 
-  const getEst = estName => {
+  const getEstId = estName => {
     let id;
     JSON.stringify(all, (key, val) => {
       if (val['establishmentName'] === estName) {
@@ -37,10 +37,10 @@ const Home = props => {
   };
 
   const goToEst = async (e, val) => {
-    if (val === null || val === '') {
+    if (val === null || val === undefined || val === '') {
       return;
     }
-    const id = await getEst(val);
+    const id = await getEstId(val);
     Router.push(`/establishment/${id}`);
   };
 
