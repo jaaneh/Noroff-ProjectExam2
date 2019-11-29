@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
@@ -14,12 +14,46 @@ import { API_URL } from '../lib/api';
 import axios from 'axios';
 import Head from 'next/head';
 
+const contactReducer = (state, action) => {
+  switch (action.type) {
+  case 'field': {
+    return {
+      ...state,
+      [action.field]: action.value
+    };
+  }
+  case 'disable_button': {
+    return {
+      ...state,
+      btnDisabled: true
+    };
+  }
+  case 'enable_button': {
+    return {
+      ...state,
+      btnDisabled: false
+    };
+  }
+  default:
+    return state;
+  }
+};
+
+const initialState = {
+  name: '',
+  email: '',
+  message: '',
+  btnDisabled: false
+};
+
 const Contact = props => {
   const { classes } = props;
-  const [ name, setName ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const [ message, setMessage ] = useState('');
-  const [ btnDisabled, setBtnDisabled ] = useState(false);
+  const [ state, dispatch ] = useReducer(contactReducer, initialState);
+  const { name, email, message, btnDisabled } = state;
+  // const [ name, setName ] = useState('');
+  // const [ email, setEmail ] = useState('');
+  // const [ message, setMessage ] = useState('');
+  // const [ btnDisabled, setBtnDisabled ] = useState(false);
 
   const submitButton = React.forwardRef((props, ref) => (
     <button {...props} ref={ref} type='submit' />
@@ -40,7 +74,7 @@ const Contact = props => {
     evt.preventDefault();
 
     if (formIsValid()) {
-      setBtnDisabled(true);
+      dispatch({ type: 'disable_button' });
       const body = {
         clientName: name,
         email: email,
@@ -55,12 +89,11 @@ const Contact = props => {
         })
         .then(res => {
           setTimeout(() => {
-            setBtnDisabled(false);
+            dispatch({ type: 'enable_button' });
           }, 1500);
-          return res;
         })
         .catch(err => {
-          setBtnDisabled(false);
+          dispatch({ type: 'enable_button' });
         });
     }
   };
@@ -81,7 +114,13 @@ const Contact = props => {
                 <TextField
                   type='text'
                   label='Your Name'
-                  onChange={e => setName(e.target.value)}
+                  onChange={e =>
+                    dispatch({
+                      type: 'field',
+                      field: 'name',
+                      value: e.target.value
+                    })
+                  }
                   variant='outlined'
                   fullWidth
                 />
@@ -93,7 +132,13 @@ const Contact = props => {
                 <TextField
                   type='email'
                   label='Your Email'
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={e =>
+                    dispatch({
+                      type: 'field',
+                      field: 'email',
+                      value: e.target.value
+                    })
+                  }
                   variant='outlined'
                   fullWidth
                 />
@@ -105,7 +150,13 @@ const Contact = props => {
                 <TextField
                   type='text'
                   label='Your Message'
-                  onChange={e => setMessage(e.target.value)}
+                  onChange={e =>
+                    dispatch({
+                      type: 'field',
+                      field: 'message',
+                      value: e.target.value
+                    })
+                  }
                   variant='outlined'
                   fullWidth
                   multiline
