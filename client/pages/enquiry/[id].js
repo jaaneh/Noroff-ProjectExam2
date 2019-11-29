@@ -11,9 +11,12 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers';
+import ArrowRightAlt from '@material-ui/icons/ArrowRightAlt';
 
 import Layout from '../../components/Layout/layout';
 import styles from '../../styles/enquiry.styles';
+
+import Link from 'next/link';
 
 import { API_URL } from '../../lib/api';
 import axios from 'axios';
@@ -79,6 +82,12 @@ const Enquiry = props => {
   return (
     <Layout>
       <Container>
+        <Link href='/establishments'>
+          <span className={classes.arrowWrapper}>
+            <ArrowRightAlt className={classes.arrow} />
+            <span className={classes.goBack}>Go Back</span>
+          </span>
+        </Link>
         <Typography variant='h5' component='h5' className={classes.title}>
           Enquiry
         </Typography>

@@ -89,7 +89,6 @@ const Login = props => {
           }
         })
         .then(res => {
-          dispatch({ type: 'enable_button' });
           cookie.set('token', res.data.token);
           signIn();
         })
