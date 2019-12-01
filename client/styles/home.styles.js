@@ -31,6 +31,7 @@ module.exports = theme => ({
   },
   discover: {
     letterSpacing: 4,
+    fontFamily: 'Open Sans',
     fontSize: '16px',
     '@media (max-width: 800px)': {
       fontSize: '14px'

@@ -31,7 +31,12 @@ const EstablishmentsComponent = props => {
           <Typography component='h5' variant='h5' gutterBottom>
             {props.name}
           </Typography>
-          <Typography variant='body2' color='textSecondary' paragraph>
+          <Typography
+            variant='body2'
+            color='textSecondary'
+            className={classes.bodyText}
+            paragraph
+          >
             {props.description}
           </Typography>
           <CardActions className={classes.cardActions} disableSpacing>

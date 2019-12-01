@@ -6,19 +6,27 @@ import theme from '../styles/theme';
 export default class MyDocument extends Document {
   render() {
     return (
-      <html lang='en'>
-        <Head>
-          <meta
-            name='viewport'
-            content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'
-          />
-          <meta name='theme-color' content={theme.palette.primary.main} />
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </html>
+      <>
+        <html lang='en'>
+          <Head>
+            <meta
+              name='viewport'
+              content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'
+            />
+            <meta name='theme-color' content={theme.palette.primary.main} />
+          </Head>
+          <body>
+            <Main />
+            <NextScript />
+          </body>
+        </html>
+        <style jsx global>{`
+          @font-face {
+            font-family: 'Open Sans';
+            src: url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap');
+          }
+        `}</style>
+      </>
     );
   }
 }

@@ -25,5 +25,9 @@ module.exports = {
     '@media (max-width: 420px)': {
       width: '100%'
     }
+  },
+  bodyText: {
+    fontFamily: 'Open Sans',
+    letterSpacing: 0
   }
 };
