@@ -10,25 +10,11 @@ import Layout from '../components/Layout/layout';
 import EstablishmentsComponent from '../components/Establishments/establishments';
 
 const Establishments = props => {
-  const all = props.json;
+  const establishmentsProps = props.json;
 
   const createEst = () => {
-    return all.map((val, i) => {
-      return (
-        <EstablishmentsComponent
-          key={i}
-          id={val.id}
-          description={val.description}
-          email={val.establishmentEmail}
-          name={val.establishmentName}
-          googleLat={val.googleLat}
-          googleLong={val.googleLong}
-          imageUrl={val.imageUrl}
-          maxGuests={val.maxGuests}
-          price={val.price}
-          selfCatering={val.selfCatering}
-        />
-      );
+    return establishmentsProps.map((val, i) => {
+      return <EstablishmentsComponent key={i} {...val} />;
     });
   };
 

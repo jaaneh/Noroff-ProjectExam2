@@ -15,23 +15,10 @@ import styles from '../../styles/establishment.styles';
 
 const Establishment = props => {
   const { classes } = props;
-  const est = props.json;
+  const establishmentProps = props.json;
 
   const createEst = () => {
-    return (
-      <EstablishmentComponent
-        id={est.id}
-        description={est.description}
-        email={est.establishmentEmail}
-        name={est.establishmentName}
-        googleLat={est.googleLat}
-        googleLong={est.googleLong}
-        imageUrl={est.imageUrl}
-        maxGuests={est.maxGuests}
-        price={est.price}
-        selfCatering={est.selfCatering}
-      />
-    );
+    return <EstablishmentComponent {...establishmentProps} />;
   };
 
   return (

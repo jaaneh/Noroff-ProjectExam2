@@ -23,8 +23,11 @@ import axios from 'axios';
 
 const Enquiry = props => {
   const { classes } = props;
-  const est = props.json;
-  const [ name, setName ] = useState(est ? est.establishmentName : '');
+  const establishmentProps = props.json;
+  const establishmentID = establishmentProps ? establishmentProps.id : '';
+  const [ name, setName ] = useState(
+    establishmentProps ? establishmentProps.establishmentName : ''
+  );
   const [ clientName, setClientName ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ checkin, setCheckin ] = useState(new Date());
@@ -82,7 +85,7 @@ const Enquiry = props => {
   return (
     <Layout>
       <Container>
-        <Link href={'/establishment/' + est.id}>
+        <Link href={'/establishment/' + establishmentID}>
           <span className={classes.arrowWrapper}>
             <ArrowRightAlt className={classes.arrow} />
             <span className={classes.goBack}>Go Back</span>

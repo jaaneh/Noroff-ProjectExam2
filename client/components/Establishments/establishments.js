@@ -25,11 +25,11 @@ const EstablishmentsComponent = props => {
         <CardMedia
           className={classes.cover}
           image={props.imageUrl}
-          title={props.name}
+          title={props.establishmentName}
         />
         <CardContent className={classes.cardContent}>
           <Typography component='h5' variant='h5' gutterBottom>
-            {props.name}
+            {props.establishmentName}
           </Typography>
           <Typography
             variant='body2'

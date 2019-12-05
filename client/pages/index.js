@@ -46,21 +46,7 @@ const Home = props => {
 
   const createEst = () => {
     return allFiltered.map((val, i) => {
-      return (
-        <EstablishmentsComponent
-          key={i}
-          id={val.id}
-          description={val.description}
-          email={val.establishmentEmail}
-          name={val.establishmentName}
-          googleLat={val.googleLat}
-          googleLong={val.googleLong}
-          imageUrl={val.imageUrl}
-          maxGuests={val.maxGuests}
-          price={val.price}
-          selfCatering={val.selfCatering}
-        />
-      );
+      return <EstablishmentsComponent key={i} {...val} />;
     });
   };
 
