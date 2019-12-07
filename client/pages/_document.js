@@ -13,6 +13,12 @@ export default class MyDocument extends Document {
             content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'
           />
           <meta name='theme-color' content={theme.palette.primary.main} />
+          <meta name="description" content="The quick and easy way to book a hotel for your holiday. Our experts will help you find the hotel of your dreams." />
+		      <meta name="keywords" content="holidaze, hotel, booking, establishment, establishments, holiday, book hotel, vacation" />
+          <meta property='og:site_name' content='Holidaze - The quick and easy way to book a hotel for your holiday.' />
+          <meta property='og:title' content='Holidaze - A hotel booking site' />
+          <meta property='og:type' content='website' />
+          <title>Holidaze - A hotel booking site</title>
           <link
             href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap'
             rel='stylesheet'

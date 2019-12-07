@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
-import Head from 'next/head';
 import cookie from 'js-cookie';
 import NextNprogress from 'nextjs-progressbar';
 
@@ -54,9 +53,6 @@ const MyApp = props => {
 
   return (
     <>
-      <Head>
-        <title>Holidaze - A hotel booking site</title>
-      </Head>
       <AuthContext.Provider
         value={{
           isAuth: isAuth,
