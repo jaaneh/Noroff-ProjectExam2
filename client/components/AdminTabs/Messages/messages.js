@@ -22,15 +22,7 @@ const Messages = () => {
 
   const createMessages = () => {
     return apiRes.map((val, i) => {
-      return (
-        <MessagesComponent
-          key={i}
-          clientName={val.clientName}
-          email={val.email}
-          message={val.message}
-          _id={val._id}
-        />
-      );
+      return <MessagesComponent key={i} {...val} />;
     });
   };
 

@@ -40,3 +40,14 @@ exports.add_new = (req, res, next) => {
     return error.validationError(req, res, next, err);
   }
 };
+
+exports.delete = (req, res, next) => {
+  Enquiry.findByIdAndRemove({ _id: req.params.id })
+    .exec()
+    .then(response => {
+      return success.removeMessageSuccess(req, res, next);
+    })
+    .catch(err => {
+      return error.fiveHundred(req, res, next, err);
+    });
+};

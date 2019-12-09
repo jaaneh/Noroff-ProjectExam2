@@ -24,11 +24,21 @@ function addContactSuccess(req, res, next) {
     }
   });
 }
+
 function removeMessageSuccess(req, res, next) {
   return res.status(200).json({
     success: {
       status: 200,
       message: 'Message removed'
+    }
+  });
+}
+
+function removeEnquirySuccess(req, res, next) {
+  return res.status(200).json({
+    success: {
+      status: 200,
+      message: 'Enquiry removed'
     }
   });
 }
@@ -48,5 +58,6 @@ module.exports = {
   addEnquirySuccess,
   addContactSuccess,
   removeMessageSuccess,
+  removeEnquirySuccess,
   validToken
 };
