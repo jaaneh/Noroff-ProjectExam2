@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import MessagesComponent from './Model/messages';
+import MessagesComponent from './component/messages';
 import { getMessages } from '../../../lib/api';
 import AuthContext from '../../../contexts/AuthContext';
 
