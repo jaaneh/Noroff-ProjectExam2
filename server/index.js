@@ -38,7 +38,12 @@ app.use('/api/v1/enquiries', enquiresRoutes);
 app.use('/api/v1/contact', contactRoutes);
 
 app.get('*', (req, res) => {
-  res.status(400).json({ message: 'Not a valid route..' });
+  res.status(400).json({
+    error: {
+      stauts: 400,
+      message: `${req.path} is not a valid route.`
+    }
+  });
 });
 
 app.listen(port, () =>
