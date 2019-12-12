@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import CheckIcon from '@material-ui/icons/Check';
 
 import Layout from '../components/Layout/layout';
 import styles from '../styles/contact.styles';
@@ -34,6 +35,19 @@ const contactReducer = (state, action) => {
       btnDisabled: false
     };
   }
+  case 'button_success': {
+    return {
+      ...state,
+      btnSuccess: true
+    };
+  }
+  case 'reset_button': {
+    return {
+      ...state,
+      btnDisabled: false,
+      btnSuccess: false
+    };
+  }
   case 'clear_fields': {
     return {
       ...state,
@@ -51,13 +65,14 @@ const initialState = {
   name: '',
   email: '',
   message: '',
-  btnDisabled: false
+  btnDisabled: false,
+  btnSuccess: false
 };
 
 const Contact = props => {
   const { classes } = props;
   const [ state, dispatch ] = useReducer(contactReducer, initialState);
-  const { name, email, message, btnDisabled } = state;
+  const { name, email, message, btnDisabled, btnSuccess } = state;
 
   const submitButton = React.forwardRef((props, ref) => (
     <button {...props} ref={ref} type='submit' />
@@ -95,11 +110,17 @@ const Contact = props => {
           setTimeout(() => {
             dispatch({ type: 'enable_button' });
             dispatch({ type: 'clear_fields' });
+            dispatch({ type: 'button_success' });
           }, 1500);
+          setTimeout(() => {
+            dispatch({ type: 'reset_button' });
+          }, 5000);
         })
         .catch(err => {
-          dispatch({ type: 'enable_button' });
-          dispatch({ type: 'clear_fields' });
+          setTimeout(() => {
+            dispatch({ type: 'enable_button' });
+            dispatch({ type: 'clear_fields' });
+          }, 1000);
         });
     }
   };
@@ -177,13 +198,15 @@ const Contact = props => {
             <Grid container justify='center' alignItems='center'>
               <Grid className={classes.formSpacing} item xs={12} sm={6} md={4}>
                 <Button
-                  className={classes.submitBtn}
+                  className={
+                    btnSuccess ? classes.successBtn : classes.submitBtn
+                  }
                   classes={{ disabled: classes.submitDisabled }}
                   component={submitButton}
                   variant='contained'
                   disabled={btnDisabled}
                 >
-                  Contact
+                  {btnSuccess ? <CheckIcon /> : 'Contact'}
                   {btnDisabled && (
                     <CircularProgress
                       size={38}

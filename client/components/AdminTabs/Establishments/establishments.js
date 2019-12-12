@@ -7,6 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
+import CheckIcon from '@material-ui/icons/Check';
 
 import cookie from 'js-cookie';
 import axios from 'axios';
@@ -32,6 +33,19 @@ const estReducer = (state, action) => {
     return {
       ...state,
       btnDisabled: false
+    };
+  }
+  case 'button_success': {
+    return {
+      ...state,
+      btnSuccess: true
+    };
+  }
+  case 'reset_button': {
+    return {
+      ...state,
+      btnDisabled: false,
+      btnSuccess: false
     };
   }
   case 'clear_fields': {
@@ -62,7 +76,8 @@ const initialState = {
   price: '',
   maxGuests: '',
   selfCatering: false,
-  btnDisabled: false
+  btnDisabled: false,
+  btnSuccess: false
 };
 
 const Establishments = props => {
@@ -78,7 +93,8 @@ const Establishments = props => {
     price,
     maxGuests,
     selfCatering,
-    btnDisabled
+    btnDisabled,
+    btnSuccess
   } = state;
 
   const submitButton = React.forwardRef((props, ref) => (
@@ -134,7 +150,11 @@ const Establishments = props => {
           setTimeout(() => {
             dispatch({ type: 'enable_button' });
             dispatch({ type: 'clear_fields' });
+            dispatch({ type: 'button_success' });
           }, 1500);
+          setTimeout(() => {
+            dispatch({ type: 'reset_button' });
+          }, 5000);
         })
         .catch(err => {
           setTimeout(() => {
@@ -300,13 +320,13 @@ const Establishments = props => {
           </Grid>
           <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
             <Button
-              className={classes.submitBtn}
+              className={btnSuccess ? classes.successBtn : classes.submitBtn}
               classes={{ disabled: classes.submitDisabled }}
               component={submitButton}
               variant='contained'
               disabled={btnDisabled}
             >
-              Add Establishment
+              {btnSuccess ? <CheckIcon /> : 'Add Establishment'}
               {btnDisabled && (
                 <CircularProgress size={38} className={classes.loadingSymbol} />
               )}

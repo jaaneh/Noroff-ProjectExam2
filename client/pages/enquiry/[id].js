@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -12,6 +12,7 @@ import {
   KeyboardDatePicker
 } from '@material-ui/pickers';
 import ArrowRightAlt from '@material-ui/icons/ArrowRightAlt';
+import CheckIcon from '@material-ui/icons/Check';
 
 import Layout from '../../components/Layout/layout';
 import styles from '../../styles/enquiry.styles';
@@ -21,6 +22,60 @@ import Link from 'next/link';
 import { API_URL } from '../../lib/api';
 import axios from 'axios';
 
+const enquiryReducer = (state, action) => {
+  switch (action.type) {
+  case 'field': {
+    return {
+      ...state,
+      [action.field]: action.value
+    };
+  }
+  case 'disable_button': {
+    return {
+      ...state,
+      btnDisabled: true
+    };
+  }
+  case 'enable_button': {
+    return {
+      ...state,
+      btnDisabled: false
+    };
+  }
+  case 'button_success': {
+    return {
+      ...state,
+      btnSuccess: true
+    };
+  }
+  case 'reset_button': {
+    return {
+      ...state,
+      btnDisabled: false,
+      btnSuccess: false
+    };
+  }
+  case 'clear_fields': {
+    return {
+      ...state,
+      clientName: '',
+      email: ''
+    };
+  }
+  default:
+    return state;
+  }
+};
+
+const initialState = {
+  clientName: '',
+  email: '',
+  checkin: new Date(),
+  checkout: new Date(),
+  btnDisabled: false,
+  btnSuccess: false
+};
+
 const Enquiry = props => {
   const { classes } = props;
   const establishmentProps = props.json;
@@ -28,11 +83,15 @@ const Enquiry = props => {
   const [ name, setName ] = useState(
     establishmentProps ? establishmentProps.establishmentName : ''
   );
-  const [ clientName, setClientName ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const [ checkin, setCheckin ] = useState(new Date());
-  const [ checkout, setCheckout ] = useState(new Date());
-  const [ btnDisabled, setBtnDisabled ] = useState(false);
+  const [ state, dispatch ] = useReducer(enquiryReducer, initialState);
+  const {
+    clientName,
+    email,
+    checkin,
+    checkout,
+    btnDisabled,
+    btnSuccess
+  } = state;
 
   const submitButton = React.forwardRef((props, ref) => (
     <button {...props} ref={ref} type='submit' />
@@ -53,7 +112,7 @@ const Enquiry = props => {
     evt.preventDefault();
 
     if (formIsValid()) {
-      setBtnDisabled(true);
+      dispatch({ type: 'disable_button' });
       const body = {
         name: name,
         clientName: clientName,
@@ -70,14 +129,19 @@ const Enquiry = props => {
         })
         .then(res => {
           setTimeout(() => {
-            setBtnDisabled(false);
+            dispatch({ type: 'enable_button' });
+            dispatch({ type: 'clear_fields' });
+            dispatch({ type: 'button_success' });
           }, 1500);
-          return res;
+          setTimeout(() => {
+            dispatch({ type: 'reset_button' });
+          }, 5000);
         })
         .catch(err => {
           setTimeout(() => {
-            setBtnDisabled(false);
-          }, 1500);
+            dispatch({ type: 'enable_button' });
+            dispatch({ type: 'clear_fields' });
+          }, 1000);
         });
     }
   };
@@ -101,7 +165,13 @@ const Enquiry = props => {
                 type='text'
                 label='Establishment'
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={e =>
+                  dispatch({
+                    type: 'field',
+                    field: 'name',
+                    value: e.target.value
+                  })
+                }
                 variant='outlined'
                 fullWidth
               />
@@ -114,7 +184,13 @@ const Enquiry = props => {
                 type='text'
                 label='Your Name'
                 value={clientName}
-                onChange={e => setClientName(e.target.value)}
+                onChange={e =>
+                  dispatch({
+                    type: 'field',
+                    field: 'clientName',
+                    value: e.target.value
+                  })
+                }
                 variant='outlined'
                 fullWidth
               />
@@ -127,7 +203,13 @@ const Enquiry = props => {
                 type='email'
                 label='Your Email'
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                onChange={e =>
+                  dispatch({
+                    type: 'field',
+                    field: 'email',
+                    value: e.target.value
+                  })
+                }
                 variant='outlined'
                 fullWidth
               />
@@ -145,7 +227,13 @@ const Enquiry = props => {
                   label='Check-in date'
                   fullWidth
                   value={checkin}
-                  onChange={date => setCheckin(date)}
+                  onChange={date =>
+                    dispatch({
+                      type: 'field',
+                      field: 'checkin',
+                      value: date
+                    })
+                  }
                   InputAdornmentProps={{ position: 'start' }}
                 />
               </Grid>
@@ -161,7 +249,14 @@ const Enquiry = props => {
                   label='Check-out date'
                   fullWidth
                   value={checkout}
-                  onChange={date => setCheckout(date)}
+                  onChange={date =>
+                    dispatch({
+                      type: 'field',
+                      field: 'checkout',
+                      value: date
+                    })
+                  }
+                  // onChange={date => setCheckout(date)}
                   InputAdornmentProps={{ position: 'start' }}
                 />
               </Grid>
@@ -171,13 +266,13 @@ const Enquiry = props => {
           <Grid container justify='center' alignItems='center'>
             <Grid className={classes.formSpacing} item xs={12} sm={6} md={4}>
               <Button
-                className={classes.submitBtn}
+                className={btnSuccess ? classes.successBtn : classes.submitBtn}
                 classes={{ disabled: classes.submitDisabled }}
                 component={submitButton}
                 variant='contained'
                 disabled={btnDisabled}
               >
-                Contact
+                {btnSuccess ? <CheckIcon /> : 'Contact'}
                 {btnDisabled && (
                   <CircularProgress
                     size={38}
