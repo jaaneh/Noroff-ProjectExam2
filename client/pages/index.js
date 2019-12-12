@@ -44,7 +44,7 @@ const Home = props => {
     Router.push(`/establishment/${id}`);
   };
 
-  const createEst = () => {
+  const createEstablishment = () => {
     return allFiltered.map((val, i) => {
       return <EstablishmentsComponent key={i} {...val} />;
     });
@@ -106,7 +106,7 @@ const Home = props => {
             HANDPICKED ESTABLISHMENTS
           </Typography>
           <Grid container spacing={2}>
-            {createEst()}
+            {createEstablishment()}
           </Grid>
         </Container>
       </Layout>

@@ -17,7 +17,7 @@ const Establishment = props => {
   const { classes } = props;
   const establishmentProps = props.json;
 
-  const createEst = () => {
+  const createEstablishment = () => {
     return <EstablishmentComponent {...establishmentProps} />;
   };
 
@@ -25,7 +25,7 @@ const Establishment = props => {
     <Layout>
       <Container style={{ paddingTop: 15 }}>
         <Grid container spacing={2}>
-          {createEst()}
+          {createEstablishment()}
         </Grid>
         <Grid container>
           <Link href='/establishments'>

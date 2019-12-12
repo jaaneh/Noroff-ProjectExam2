@@ -12,7 +12,7 @@ import EstablishmentsComponent from '../components/Establishments/establishments
 const Establishments = props => {
   const establishmentsProps = props.json;
 
-  const createEst = () => {
+  const createEstablishments = () => {
     return establishmentsProps.map((val, i) => {
       return <EstablishmentsComponent key={i} {...val} />;
     });
@@ -26,7 +26,7 @@ const Establishments = props => {
       <Layout>
         <Container style={{ paddingTop: 15 }}>
           <Grid container spacing={2}>
-            {createEst()}
+            {createEstablishments()}
           </Grid>
         </Container>
       </Layout>
