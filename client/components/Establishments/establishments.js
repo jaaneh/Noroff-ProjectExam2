@@ -15,7 +15,7 @@ import styles from './styles';
 const EstablishmentsComponent = props => {
   const { classes } = props;
 
-  const estButton = React.forwardRef((props, ref) => (
+  const establishmentsButton = React.forwardRef((props, ref) => (
     <button {...props} ref={ref} type='submit' />
   ));
 
@@ -44,7 +44,7 @@ const EstablishmentsComponent = props => {
             <Link href='/establishment/[id]' as={`/establishment/${props.id}`}>
               <Button
                 className={classes.button}
-                component={estButton}
+                component={establishmentsButton}
                 variant='contained'
               >
                 View More

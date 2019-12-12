@@ -29,7 +29,11 @@ const EnquiriesComponent = props => {
   const { forceUpdate } = useContext(AuthContext);
   const { classes } = props;
   const [ modalOpen, setModalOpen ] = useState(false);
-  const clientAvatar = props.clientName ? props.clientName.charAt(0).toUpperCase() : <Person />;
+  const clientAvatar = props.clientName ? (
+    props.clientName.charAt(0).toUpperCase()
+  ) : (
+    <Person />
+  );
 
   const handleDelete = async evt => {
     evt.preventDefault();
@@ -51,7 +55,9 @@ const EnquiriesComponent = props => {
       });
   };
 
-  const replyButton = React.forwardRef((props, ref) => <button {...props} ref={ref} type='submit' />);
+  const replyButton = React.forwardRef((props, ref) => (
+    <button {...props} ref={ref} type='submit' />
+  ));
 
   return (
     <>
@@ -75,7 +81,11 @@ const EnquiriesComponent = props => {
             </Typography>
           </CardContent>
           <CardActions className={classes.cardActions} disableSpacing>
-            <Button className={classes.button} component={replyButton} variant='contained'>
+            <Button
+              className={classes.button}
+              component={replyButton}
+              variant='contained'
+            >
               Finalize
             </Button>
           </CardActions>
@@ -85,7 +95,8 @@ const EnquiriesComponent = props => {
         <DialogTitle>Remove enquiry?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to remove this enquiry? This will delete this from the database.
+            Are you sure you want to remove this enquiry? This will delete this
+            from the database.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -97,7 +108,13 @@ const EnquiriesComponent = props => {
           >
             Cancel
           </Button>
-          <Button onClick={handleDelete} className={classes.removeButton} color='primary' variant='contained' autoFocus>
+          <Button
+            onClick={handleDelete}
+            className={classes.removeButton}
+            color='primary'
+            variant='contained'
+            autoFocus
+          >
             Remove
           </Button>
         </DialogActions>

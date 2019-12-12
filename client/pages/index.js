@@ -25,10 +25,10 @@ const Home = props => {
     return i % 3 === 0;
   });
 
-  const getEstId = estName => {
+  const getEstablishmentId = establishmentName => {
     let id;
     JSON.stringify(all, (key, val) => {
-      if (val['establishmentName'] === estName) {
+      if (val['establishmentName'] === establishmentName) {
         id = val.id;
       }
       return val;
@@ -36,11 +36,11 @@ const Home = props => {
     return id;
   };
 
-  const goToEst = async (e, val) => {
+  const goToEstablishment = async (e, val) => {
     if (val === null || val === undefined || val === '') {
       return;
     }
-    const id = await getEstId(val);
+    const id = await getEstablishmentId(val);
     Router.push(`/establishment/${id}`);
   };
 
@@ -72,7 +72,7 @@ const Home = props => {
             <Autocomplete
               options={all.map(option => option.establishmentName)}
               className={classes.autocomplete}
-              onChange={goToEst}
+              onChange={goToEstablishment}
               renderInput={params => (
                 <TextField
                   {...params}

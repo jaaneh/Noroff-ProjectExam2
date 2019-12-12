@@ -15,7 +15,7 @@ import { API_URL } from '../../../lib/api';
 
 import styles from './styles';
 
-const estReducer = (state, action) => {
+const establishmentReducer = (state, action) => {
   switch (action.type) {
   case 'field': {
     return {
@@ -82,7 +82,7 @@ const initialState = {
 
 const Establishments = props => {
   const { classes } = props;
-  const [ state, dispatch ] = useReducer(estReducer, initialState);
+  const [ state, dispatch ] = useReducer(establishmentReducer, initialState);
   const {
     name,
     email,
@@ -121,7 +121,7 @@ const Establishments = props => {
     return false;
   };
 
-  const handleAddEst = evt => {
+  const handleAddEstablishment = evt => {
     evt.preventDefault();
     const token = cookie.get('token');
 
@@ -170,7 +170,7 @@ const Establishments = props => {
       <Typography variant='h5' component='h5' className={classes.title}>
         Add Establishments
       </Typography>
-      <form onSubmit={handleAddEst} noValidate autoComplete='off'>
+      <form onSubmit={handleAddEstablishment} noValidate autoComplete='off'>
         <Grid container justify='center' alignItems='center'>
           <Grid className={classes.spacing} item xs={12} sm={6} md={4}>
             <TextField
