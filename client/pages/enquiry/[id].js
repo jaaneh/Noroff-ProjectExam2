@@ -165,13 +165,7 @@ const Enquiry = props => {
                 type='text'
                 label='Establishment'
                 value={name}
-                onChange={e =>
-                  dispatch({
-                    type: 'field',
-                    field: 'name',
-                    value: e.target.value
-                  })
-                }
+                onChange={e => setName(e.target.value)}
                 variant='outlined'
                 fullWidth
               />
@@ -256,7 +250,6 @@ const Enquiry = props => {
                       value: date
                     })
                   }
-                  // onChange={date => setCheckout(date)}
                   InputAdornmentProps={{ position: 'start' }}
                 />
               </Grid>
