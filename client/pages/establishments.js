@@ -7,14 +7,14 @@ import fetch from 'isomorphic-unfetch';
 import { API_URL } from '../lib/api';
 
 import Layout from '../components/Layout/layout';
-import EstablishmentsComponent from '../components/Establishments/establishments';
+import Establishments from '../components/Establishments/establishments';
 
-const Establishments = props => {
+const AllEstablishments = props => {
   const establishmentsProps = props.json;
 
   const createEstablishments = () => {
     return establishmentsProps.map((val, i) => {
-      return <EstablishmentsComponent key={i} {...val} />;
+      return <Establishments key={i} {...val} />;
     });
   };
 
@@ -34,7 +34,7 @@ const Establishments = props => {
   );
 };
 
-Establishments.getInitialProps = async ctx => {
+AllEstablishments.getInitialProps = async ctx => {
   const res = await fetch(`${API_URL}/establishments/getAll`);
   const json = await res.json();
 
@@ -43,4 +43,4 @@ Establishments.getInitialProps = async ctx => {
   };
 };
 
-export default Establishments;
+export default AllEstablishments;

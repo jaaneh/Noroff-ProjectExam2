@@ -25,7 +25,7 @@ import AuthContext from '../../../../contexts/AuthContext';
 
 import styles from './styles';
 
-const MessagesComponent = props => {
+const SingleMessage = props => {
   const { forceUpdate } = useContext(AuthContext);
   const { classes } = props;
   const [ modalOpen, setModalOpen ] = useState(false);
@@ -121,4 +121,4 @@ const MessagesComponent = props => {
   );
 };
 
-export default withStyles(styles)(MessagesComponent);
+export default withStyles(styles)(SingleMessage);

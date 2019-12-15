@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import EnquiriesComponent from './component/enquiries';
+import SingleEnquiry from './component/enquiries';
 import { getEnquiries } from '../../../lib/api';
 import AuthContext from '../../../contexts/AuthContext';
 
@@ -22,7 +22,7 @@ const Enquiries = () => {
 
   const createEnquiries = () => {
     return apiRes.map((val, i) => {
-      return <EnquiriesComponent key={i} {...val} />;
+      return <SingleEnquiry key={i} {...val} />;
     });
   };
 

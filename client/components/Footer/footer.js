@@ -5,7 +5,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 
 import styles from './styles';
 
-const FooterComponent = props => {
+const Footer = props => {
   const { classes } = props;
 
   return (
@@ -55,4 +55,4 @@ const FooterComponent = props => {
   );
 };
 
-export default withStyles(styles)(FooterComponent);
+export default withStyles(styles)(Footer);

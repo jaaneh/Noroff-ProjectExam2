@@ -10,15 +10,15 @@ import fetch from 'isomorphic-unfetch';
 import { API_URL } from '../../lib/api';
 
 import Layout from '../../components/Layout/layout';
-import EstablishmentComponent from '../../components/Establishment/establishment';
+import Establishment from '../../components/Establishment/establishment';
 import styles from '../../styles/establishment.styles';
 
-const Establishment = props => {
+const SpecificEstablishment = props => {
   const { classes } = props;
   const establishmentProps = props.json;
 
   const createEstablishment = () => {
-    return <EstablishmentComponent {...establishmentProps} />;
+    return <Establishment {...establishmentProps} />;
   };
 
   return (
@@ -40,7 +40,7 @@ const Establishment = props => {
   );
 };
 
-Establishment.getInitialProps = async ctx => {
+SpecificEstablishment.getInitialProps = async ctx => {
   const res = ctx.res;
   const id = ctx.query.id;
 
@@ -69,4 +69,4 @@ Establishment.getInitialProps = async ctx => {
   }
 };
 
-export default withStyles(styles)(Establishment);
+export default withStyles(styles)(SpecificEstablishment);

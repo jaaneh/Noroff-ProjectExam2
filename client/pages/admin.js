@@ -12,7 +12,6 @@ import fetch from 'isomorphic-unfetch';
 import nextCookie from 'next-cookies';
 
 import Layout from '../components/Layout/layout';
-import Home from '../components/AdminTabs/Home/home';
 import Enquiries from '../components/AdminTabs/Enquiries/enquiries';
 import Messages from '../components/AdminTabs/Messages/messages';
 import Establishments from '../components/AdminTabs/Establishments/establishments';
@@ -45,7 +44,6 @@ const Admin = props => {
             TabIndicatorProps={{ style: { backgroundColor: '#003580' } }}
             centered
           >
-            <Tab className={classes.tab} label='Home' />
             <Tab className={classes.tab} label='Enquiries' />
             <Tab className={classes.tab} label='Messages' />
             <Tab className={classes.tab} label='Establishments' />
@@ -54,20 +52,15 @@ const Admin = props => {
         <Container>
           {value === 0 && (
             <TabContainer>
-              <Home />
+              <Enquiries />
             </TabContainer>
           )}
           {value === 1 && (
             <TabContainer>
-              <Enquiries />
-            </TabContainer>
-          )}
-          {value === 2 && (
-            <TabContainer>
               <Messages />
             </TabContainer>
           )}
-          {value === 3 && (
+          {value === 2 && (
             <TabContainer>
               <Establishments />
             </TabContainer>

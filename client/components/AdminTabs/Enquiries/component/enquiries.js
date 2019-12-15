@@ -25,7 +25,7 @@ import AuthContext from '../../../../contexts/AuthContext';
 
 import styles from './styles';
 
-const EnquiriesComponent = props => {
+const SingleEnquiry = props => {
   const { forceUpdate } = useContext(AuthContext);
   const { classes } = props;
   const [ modalOpen, setModalOpen ] = useState(false);
@@ -123,4 +123,4 @@ const EnquiriesComponent = props => {
   );
 };
 
-export default withStyles(styles)(EnquiriesComponent);
+export default withStyles(styles)(SingleEnquiry);

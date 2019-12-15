@@ -14,7 +14,7 @@ import fetch from 'isomorphic-unfetch';
 import { API_URL } from '../lib/api';
 
 import Layout from '../components/Layout/layout';
-import EstablishmentsComponent from '../components/Establishments/establishments';
+import Establishments from '../components/Establishments/establishments';
 
 import styles from '../styles/home.styles';
 
@@ -46,7 +46,7 @@ const Home = props => {
 
   const createEstablishment = () => {
     return allFiltered.map((val, i) => {
-      return <EstablishmentsComponent key={i} {...val} />;
+      return <Establishments key={i} {...val} />;
     });
   };
 

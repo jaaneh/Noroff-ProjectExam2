@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import MessagesComponent from './component/messages';
+import SingleMessage from './component/messages';
 import { getMessages } from '../../../lib/api';
 import AuthContext from '../../../contexts/AuthContext';
 
@@ -22,7 +22,7 @@ const Messages = () => {
 
   const createMessages = () => {
     return apiRes.map((val, i) => {
-      return <MessagesComponent key={i} {...val} />;
+      return <SingleMessage key={i} {...val} />;
     });
   };
 

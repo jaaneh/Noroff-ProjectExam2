@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 import styles from './styles';
 
-const EstablishmentsComponent = props => {
+const Establishments = props => {
   const { classes } = props;
 
   const establishmentsButton = React.forwardRef((props, ref) => (
@@ -57,4 +57,4 @@ const EstablishmentsComponent = props => {
   );
 };
 
-export default withStyles(styles)(EstablishmentsComponent);
+export default withStyles(styles)(Establishments);
