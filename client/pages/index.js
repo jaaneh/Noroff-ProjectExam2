@@ -114,7 +114,7 @@ const Home = props => {
   );
 };
 
-Home.getInitialProps = async ctx => {
+Home.getInitialProps = async () => {
   const res = await fetch(`${API_URL}/establishments/getAll`);
   const json = await res.json();
 
